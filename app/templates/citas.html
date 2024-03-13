@@ -18,16 +18,22 @@
                 <th>Medico</th>
                 <th>Consultorio</th>
                 <th>Valor</th>
+                <th>Ver detalles</th>
             </tr>
         </thead>
         <tbody>
             {% for cita in citas %}
                 <tr>
                     <td> {{ cita.fecha }} </td>
-                    <td> {{ cita.paciente.nombre }} </td>
-                    <td> {{ cita.medico.nombre }} </td>
-                    <td> {{ cita.consultorio.numero }} </td>
+                    <td> {{ cita.paciente_id }} </td>
+                    <td> {{ cita.medico_id }} </td>
+                    <td> {{ cita.consultorio_id }} </td>
                     <td> {{ cita.valor }} </td>
+                    <td>
+                        <a href="/citas/{{ cita.id }}">
+                            Ver Detalles
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

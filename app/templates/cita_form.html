@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> nueva cita </h1>
+    <form method="post">
+        <p> Fecha: <input type="date" name="fecha"/></p> 
+        <p> paciente:
+            <select name="pac">
+                {% for paciente in pacientes %}
+                    <option value=""> {{paciente.nombre}} </option>
+                {% endfor %}    
+            </select>
+        </p>
+        <p> medico:
+            <select name="med">
+                {% for medico in medicos %}
+                    <option value=""> {{ medico }} </option>
+                {% endfor %}    
+            </select>
+        </p>
+        <p>consultorio:
+            <select name="con">
+                {% for consultorio in consultorios %}
+                    <option value=""> {{ consultorio }} </option>
+                {% endfor %}    
+            </select>
+        </p>
+        <p>valor <input type="number" name="val"></p>
+        <button type="submit">
+            Guardar
+        </button>
+    </form>
+</body>
+</html>    
