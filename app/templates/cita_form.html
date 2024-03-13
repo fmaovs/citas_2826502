@@ -7,34 +7,37 @@
     <title>Document</title>
 </head>
 <body>
-    <h1> nueva cita </h1>
+    <h1>nueva cita</h1>
     <form method="post">
-        <p> Fecha: <input type="date" name="fecha"/></p> 
-        <p> paciente:
-            <select name="pac">
+        <p>fecha: <input type="datetime-local" name="fecha" step="60" class="form-control"></p>
+        <p>paciente:
+            <select name="pa">
                 {% for paciente in pacientes %}
-                    <option value=""> {{paciente.nombre}} </option>
-                {% endfor %}    
+                    <option> {{ paciente.nombre }} {{paciente.apellido}} </option>
+                {% endfor %}
             </select>
         </p>
-        <p> medico:
+        <p>medico:
             <select name="med">
                 {% for medico in medicos %}
-                    <option value=""> {{ medico }} </option>
-                {% endfor %}    
+                    <option> {{ medico.nombre }} {{medico.apellido}} </option>
+                {% endfor %}
             </select>
         </p>
         <p>consultorio:
             <select name="con">
                 {% for consultorio in consultorios %}
-                    <option value=""> {{ consultorio }} </option>
-                {% endfor %}    
+                    <option> {{ consultorio.numero }}  </option>
+                {% endfor %}
             </select>
         </p>
-        <p>valor <input type="number" name="val"></p>
-        <button type="submit">
-            Guardar
-        </button>
+        <p>Valor:
+            <select name="val">
+                <option>4500</option>
+                <option>0</option>
+            </select>
+        </p>
+        <button type="submit">Guardar</button>
     </form>
 </body>
 </html>    

@@ -19,6 +19,8 @@
                 <th>numero de registro|</th>
                 <th>especialidad</th>
                 <th>Ver detalles</th>
+                <th>Actualizar</th>
+                <th>Eliminar</th>
             </tr>
         </thead>
         <tbody>
@@ -35,10 +37,32 @@
                             Ver Detalles
                         </a>
                     </td>
+                    <td>
+                        <a href="/medicos/update/{{ medico.id }}">
+                            Actualizar
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="/medicos/delete/{{ medico.id }}">
+                            Eliminar
+                        </a>
+                    </td>
+
                 </tr>
             {% endfor %}
         </tbody>
         <tfoot></tfoot>
     </table>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
 </body>
 </html>

@@ -1,6 +1,6 @@
 from . import app,db
 from .models import Medico, Paciente, Consultorio, Cita
-from flask import render_template, request
+from flask import render_template, request, flash, redirect
 
 #crear ruta para ver los medicos
 @app.route("/medicos")
@@ -69,7 +69,7 @@ def create_medico():
     elif(request.method == "POST"):
         #cuando se presiona "guardar"
         new_medico = Medico(nombre = request.form["nombre"],
-                            apellidos = request.form["apellidos"],
+                            apellido = request.form["apellidos"],
                             tipo_identificacion = request.form["ti"],
                             numero_identificacion = request.form["ni"],
                             registro_medico = request.form["rm"],
@@ -78,7 +78,8 @@ def create_medico():
         #añadirlo a la sesion sqlalchemy
         db.session.add(new_medico)
         db.session.commit()
-        return "medico registrado"
+        flash("medico registrado correctamente")
+        return redirect("/medicos")
 
 #crear ruta para crear nuevo paciente
 @app.route("/pacientes/create" , methods = [ "GET" , "POST"] )
@@ -150,25 +151,52 @@ def create_consultorio():
         db.session.commit()
         return "consultorio registrado"
 
-@app.route("/citas/create" , methods = [ "GET" , "POST"] )
+@app.route("/citas/create", methods = ['GET', 'POST'])
 def create_cita():
-    if(request.method == "GET"):
+    
+    if(request.method == 'GET'):
         pacientes = Paciente.query.all()
-        return render_template("cita_form.html" , pacientes=pacientes)
-    elif(request.method == "GET"):
         medicos = Medico.query.all()
-        return render_template("cita_form.html" , medicos=medicos)
-    elif(request.method == "GET"):
         consultorios = Consultorio.query.all()
-        return render_template("cita_form.html" , consultorios=consultorios)
-    elif(request.method == "POST"):
-        new_cita = Cita(fecha = request.form["fecha"],
-                        paciente = request.form["pac"],
-                        medico = request.form["med"],
-                        consultorio = request.form["con"],
-                        valor = request.form["val"]
-                        )
-        db.session.add(new_cita)
+        return render_template("cita_form.html" , pacientes=pacientes , medicos=medicos, consultorios=consultorios  )
+    elif(request.method == 'POST'):
+        new_cita = Cita(fecha = request.form['fecha'.datetime.strftime('%Y-%m-%d %H:%M')],
+                        paciente = request.form['pa'], 
+                        medico = request.form['med'], 
+                        consultorio = request.form['con'], 
+                        valor = request.form['val'])
+    db.session.add(new_cita)
+    db.session.commit()
+    return 'cita registrada'
+
+@app.route('/medicos/update/<int:id>', methods=['GET','POST'])
+def update_medico(id):
+    especialidades = [
+           "Cardiologia",
+            "Pediatria",
+            "Oncologia",
+            "Urologa"
+    ]
+    medico_update = Medico.query.get(id)
+    
+    if(request.method == 'GET'):
+        return render_template('medico_update.html' , 
+                                medico_update = medico_update, 
+                                especialidades=especialidades)
+    elif(request.method == 'POST'):
+        #actualizar el medico con los datos del formulario
+        medico_update.nombre = request.form['nombre']
+        medico_update.apellido = request.form['apellidos']
+        medico_update.tipo_identificacion = request.form['ti']
+        medico_update.numero_identificacion = request.form['ni']
+        medico_update.registro_medico = request.form['rm']
+        medico_update.especialidad = request.form['es']
         db.session.commit()
-        return "cita registrada"
-        
+        return redirect('/medicos')
+    
+@app.route('/medicos/delete/<int:id>', methods=['GET','POST'])
+def delete_medico(id):
+    medico_delete = Medico.query.get(id)
+    db.session.delete(medico_delete)
+    db.session.commit()
+    return redirect('/medicos')
