@@ -5,15 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Consultorios</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .title{
+            display: inline-flex;
+            
+            justify-content: space-between;
+        }
+    </style>
 </head>
 <body>
-    <h1> Lista de Consultorios</h1>
-
+    <div class = title style="display:inline-flex;">
+        <h1> Lista de Consultorios</h1>
+        <button class="btn btn-primary"  style="margin-left: 1000px;"><a href="citas/create" style="color: beige;">Nuevo Consultorio</a></button>
+    </div>
     <table class="table table-sm table-dark">
         <thead>
             <tr>
                 <th>Numero</th>
                 <th>Ver detalles</th>
+                <th>Actualizar</th>
+                <th>Eliminar</th>
             </tr>
         </thead>
         <tbody>
@@ -25,10 +36,30 @@
                             Ver Detalles
                         </a>
                     </td>
+                    <td>
+                        <a href="/consultorios/update/{{ consultorio.id }}">
+                            Actualizar
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/consultorios/delete/{{ consultorio.id }}">
+                            Eliminar
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
         <tfoot></tfoot>
     </table>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
 </body>
 </html>

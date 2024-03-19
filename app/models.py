@@ -3,7 +3,7 @@
 #pero con tipos traducibles a SQL y mysql
 
 from app import db
-from datetime import datetime
+from datetime import datetime, timezone
 
 class Medico(db.Model):
     __tablename__ = 'medicos'
@@ -39,13 +39,13 @@ class Consultorio(db.Model):
 class Cita(db.Model):
     __tablename__ = 'citas'
     id = db.Column(db.Integer, primary_key = True)
-    fecha = db.Column(db.DateTime, default = datetime.utcnow)
+    fecha = db.Column(db.DateTime, default = datetime.now)
     paciente_id = db.Column(db.Integer, db.ForeignKey('pacientes.id'))
     medico_id = db.Column(db.Integer, db.ForeignKey('medicos.id'))
     consultorio_id = db.Column(db.Integer, db.ForeignKey('consultorios.id'))
     valor = db.Column(db.Integer)
-    
-    
+
+ #+ .utcnow
 '''    
 med1 = Medico(nombres = 'gonzalo', apellidos = 'Fernandez', tipo_identificacion = 'CC', numero_identificacion = 123455, registro_medico = 8171635, especialidad ='cardiologo')
 med2 = Medico(nombre = 'Sandra', apellido = 'Vargas', tipo_identificacion = 'CC', numero_identificacion = 4163839, registro_medico = 765456, especialidad ='Urologa') 

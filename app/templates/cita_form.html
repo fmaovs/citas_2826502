@@ -9,7 +9,9 @@
 <body>
     <h1>nueva cita</h1>
     <form method="post">
-        <p>fecha: <input type="datetime-local" name="fecha" step="60" class="form-control"></p>
+        <p>fecha: 
+            <input type="datetime-local" name="fecha">
+        </p>
         <p>paciente:
             <select name="pa">
                 {% for paciente in pacientes %}
@@ -32,9 +34,10 @@
             </select>
         </p>
         <p>Valor:
-            <select name="val">
-                <option>4500</option>
-                <option>0</option>
+            <select name="val" class="form-select">
+                {% for valor in valores %}
+                    <option>{{ valor }}</option>
+                {% endfor %}
             </select>
         </p>
         <button type="submit">Guardar</button>

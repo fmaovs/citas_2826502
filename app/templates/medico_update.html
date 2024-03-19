@@ -24,19 +24,11 @@
 <body>
     <h1> actualizar medico </h1>
 
-    
-
-
-
     <section>
         <form method="post" action="/medicos/update/{{medico_update.id}}" style="background-color: gray" id="formulario" >
         <p> Nombre: <input type="text" class="form-control" placeholder="Nombre" name="nombre" value="{{ medico_update.nombre }}"/></p> 
             <p> Apellidos: <input type="text" class="form-control" placeholder="Apellidos" name="apellidos" value="{{ medico_update.apellido }}"/></p>
-            
-    
-    
-    
-    
+                
             <p> tipo de identificacion:
                 <div>
                     <select id="inputState" class="form-select" name="ti">
@@ -57,10 +49,6 @@
                   </div>
             </p>
     
-    
-    
-    
-    
             <p> Numero de identificacion:
                 <input type="text" name="ni" class="form-control" placeholder="Numero de identificacion" value="{{ medico_update.numero_identificacion }}"/>
             </p>
@@ -68,10 +56,6 @@
             <p>registro medico:
                 <input type="text" name="rm" class="form-control" placeholder="Registro medico"  value="{{ medico_update.registro_medico }}"/>
             </p>
-    
-    
-    
-    
     
             <p>
                 Especialidad:
@@ -84,12 +68,6 @@
                     {% endfor %}
                 </select>
             </p>
-    
-    
-            
-    
-    
-    
     
             <button type="submit" class="btn btn-primary">
                 actualizar
